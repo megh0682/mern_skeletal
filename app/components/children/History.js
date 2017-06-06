@@ -1,23 +1,36 @@
 // Include React
 var React = require("react");
+var helpers = require("../utils/helpers");
+var HistoryRecord = require("./HistoryRecord");
 
-// This is the History component. It will be used to show a log of  recent searches.
+
+// Creating the Results component
 var History = React.createClass({
-  // Here we describe this component's render method
+
+  // Here we render the function
   render: function() {
     return (
       <div className="panel panel-default">
         <div className="panel-heading">
-          <h3 className="panel-title text-center">Search History</h3>
+          <h3 className="panel-title text-center">Saved Results</h3>
         </div>
-        <div className="panel-body text-center">
-
+        <div className="panel-body verticalScroll">
           {/* Here we use a map function to loop through an array in JSX */}
           {this.props.history.map(function(search, i) {
+            console.log("index: " +i+" search.headline: "+ search.headline + " search.weblink: "+search.weblink+" search.date: "+
+            search.date+" search._id: "+search._id);
             return (
-              <p key={i}>{search.location} - {search.date}</p>
+
+                 <HistoryRecord 
+                 
+                   headline = {search.headline}
+                   weblink = {search.weblink}
+                   date={search.date}
+                   id={search._id}
+                  
+                 />      
             );
-          })}
+         })}
         </div>
       </div>
     );

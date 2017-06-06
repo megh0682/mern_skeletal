@@ -24,7 +24,9 @@ app.use(express.static("./public"));
 // -------------------------------------------------
 
 // MongoDB Configuration configuration (Change this URL to your own DB)
-mongoose.connect("mongodb://admin:codingrocks@ds023664.mlab.com:23664/reactlocate");
+mongoose.connect("mongodb://newyorktimesdb:newyorktimesdb@ds161931.mlab.com:61931/newyorktimesdb");
+
+                  
 var db = mongoose.connection;
 
 db.on("error", function(err) {
@@ -61,22 +63,53 @@ app.get("/api", function(req, res) {
 
 // This is the route we will send POST requests to save each search.
 app.post("/api", function(req, res) {
-  console.log("BODY: " + req.body.location);
-
+  console.log("headline: " + req.body.headline);
+  console.log("weblink: " + req.body.web_url);
   // Here we'll save the location based on the JSON input.
   // We'll use Date.now() to always get the current date time
   History.create({
-    location: req.body.location,
+    headline: req.body.headline,
+    weblink:req.body.weblink,
     date: Date.now()
-  }, function(err) {
+  }, function(err,doc) {
     if (err) {
       console.log(err);
     }
     else {
+      console.log(doc._id);
       res.send("Saved Search");
+
     }
   });
 });
+//Get a single record using id
+app.get("/api/:id", function(req, res) {
+
+  // We will find all the records, sort it in descending order, then limit the records to 5
+  History.findById(req.params.id, function (err, doc){
+    if (err) {
+      console.log(err);
+    }
+    else {
+      res.send(doc);
+    }
+  });
+    
+});
+
+// This is the route we will send delete requests to delete the article by id
+app.delete("/api/:id", function(req, res) {
+  console.log("id: " + req.params.id);
+    History.findByIdAndRemove(req.params.id, function (err,doc) {  
+    // We'll create a simple object to send back with a message and the id of the document that was removed
+    var response = {
+        message: "Article successfully deleted",
+        id: doc._id
+    };
+    res.send(response);
+    });
+});
+
 
 // -------------------------------------------------
 

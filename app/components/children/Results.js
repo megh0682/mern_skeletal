@@ -23,7 +23,7 @@ updateResultList:function(){
     return (
       <div className="panel panel-default">
         <div className="panel-heading">
-          <h3 className="panel-title text-center">Top Results</h3>
+          <h3 className="panel-title text-center">Top 5 Search Results</h3>
         </div>
         <div className="panel-body verticalScroll">
           {/* Here we use a map function to loop through an array in JSX */}
@@ -36,8 +36,7 @@ updateResultList:function(){
                    headline = {search.headline}
                    weblink = {search.web_url}
                    index = {search.index}
-                   doremoveRecord={this.removeRecord}
-                   doupdateResultList={this.updateResultList}
+                
 
                  />      
             );

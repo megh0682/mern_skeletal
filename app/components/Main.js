@@ -70,10 +70,11 @@ var Main = React.createClass({
     helpers.runQuery(this.state.searchObject).then(function(data) {
       if (data !== this.state.results && data !== "" && data !==null) {
          var top5resultsArray = [];
-         data.forEach(function(i,item,array){
+         data.forEach(function(item,i,array){
+            console.log("THIS IS AN ITEM OBJECT: "+ item);
           if(i<5){
             var resultObj ={ index : (i+1),headline:item.headline.main,web_url: item.web_url};
-            console.log(resultObj);
+            console.log("THIS IS RESULT OBJECT: "+resultObj);
             top5resultsArray.push(resultObj);
             }
          });

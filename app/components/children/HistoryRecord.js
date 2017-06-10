@@ -10,14 +10,11 @@ removeClickHandler: function(id){
     
      //fire a post call using helper function to save the result object in DB
     helpers.deleteArticle(id).then(function(err) {
-      if(err){  
-        throw err;
-      }else{
-       console.log("removed record from DB");
-      }
+      console.log("removed record from DB");
+      // get history DB again and update the history state in main to rerender
+      this.props.getHistoryFromDB();
 
-    });
-
+    }.bind(this));
 
   },
   // Here we render the function

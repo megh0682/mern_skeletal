@@ -2,7 +2,7 @@
 var React = require("react");
 var helpers = require("../utils/helpers");
 var Result = require("./Result.js");
-
+var EmptyResult = require("./EmptyResult.js");
 // Creating the Results component
 var Results = React.createClass({
 
@@ -17,17 +17,14 @@ updateResultList:function(){
      this.props.getHistoryFromDB();
 
 },
- 
-  // Here we render the function
-  render: function() {
+
+renderResult:function(){
+
+  if(this.props.top5results!=null || this.props.top5results!="" ||this.props.top5results!=undefined){
+
     return (
-      <div className="panel panel-default">
-        <div className="panel-heading">
-          <h3 className="panel-title text-center">Top 5 Search Results</h3>
-        </div>
-        <div className="panel-body verticalScroll">
-          {/* Here we use a map function to loop through an array in JSX */}
-          {this.props.top5results.map(function(search, i) {
+      this.props.top5results.map(function(search, i) {
+            console.log(this)
             console.log(" search headline: "+ search.headline + " search web url: "+search.web_url+" search.index: "+search.index);
             return (
 
@@ -36,11 +33,39 @@ updateResultList:function(){
                    headline = {search.headline}
                    weblink = {search.web_url}
                    index = {search.index}
+                   removeRecord={this.props.removeFromTempResults}
+                   updateResultList={this.props.getHistoryFromDB}
                 
 
                  />      
             );
-         })}
+         },this)
+    );
+
+  }else{
+    
+    return (
+   
+   <EmptyResult/>
+
+    )
+
+  }
+
+},
+ 
+  // Here we render the function
+  render: function() {
+    return (
+      <div className="panel panel-default">
+        <div className="panel-heading">
+          <h1 className="panel-title text-center">Search Results</h1>
+        </div>
+        <div className="panel-body verticalScroll">
+          {/* Here we use a map function to loop through an array in JSX */}
+          {
+            this.renderResult()
+          }
         </div>
       </div>
     );

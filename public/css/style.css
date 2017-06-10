@@ -1,4 +1,59 @@
+body{
+
+    background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFjPrTGafProk5kx6kf0gx_9TsXNatwevGSu-N9QI9yp2_AEff');
+}
+
 .verticalScroll{
     max-height: 500px;
     overflow-y:scroll; 
+}
+
+.panel > .panel-heading {
+    background-image: none;
+    background-color: purple;
+    color: white;
+    font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
+    font-weight: bold;
+    
+
+}
+
+.jumbotron {
+    background-color:purple !important; 
+    color: white;
+    font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
+    font-weight: bold;
+}
+
+.btn.btn-default{
+background-color:darkblue !important; 
+ color: white;
+ font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
+}
+
+button{
+background-color:darkblue !important; 
+ color: white;
+ font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
+ font-weight: bold;
+
+}
+
+.form-control{
+ color: black;
+ font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
+ font-weight: bold;
+
+}
+
+.form-group{
+ color: black;
+ font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
+ font-weight: bold;
+ font-size: 2em;
+
+}
+
+.panel-body{
+font-family: Cambria, Cochin, Georgia, Times, Times New Roman, serif;
 }

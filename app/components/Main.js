@@ -14,9 +14,7 @@ var Main = React.createClass({
 
   // Here we set a generic state associated with the number of clicks
   // Note how we added in this history state variable
-  getInitialState: function() {
-    return { searchObject: {topic:"",startYear:"",endYear:""}, 
-             results: [{index:1,
+  /** @param results: [{index:1,
                         headline:"Is It O.K. to Tinker With the Environment to Fight Climate Change?",
                         web_url:"https://www.nytimes.com/2017/04/18/magazine/is-it-ok-to-engineer-the-environment-to-fight-climate-change.html"
                        }],
@@ -26,7 +24,11 @@ var Main = React.createClass({
                          "weblink": "https://www.nytimes.com/2017/04/20/magazine/why-the-menace-of-mosquitoes-will-only-get-worse.html",
                           "headline": "Why the Menace of Mosquitoes Will Only Get Worse"
                        }
-                       ]
+                       ] */
+  getInitialState: function() {
+    return { searchObject: {topic:"",startYear:"",endYear:""}, 
+             results: [],
+             history: []
            };
   },
   getHistoryFromDB:function(){
@@ -42,13 +44,14 @@ var Main = React.createClass({
   
   removeFromTempResults:function(index){
     var resultsData = this.state.results;
-    resultData.forEach(function(i,item){
+    resultsData.forEach(function(i,item){
       if((i+1)===index){
-        resultData.splice(i,1);
+        resultsData.splice(i,1);
       }
     });
-    this.setState({results: resultData});
-      
+    this.setState({results: resultsData});
+    console.log("removed the saved record from temp list");
+    console.log(this.state.results);  
    },
 
   // The moment the page renders get the History
@@ -80,7 +83,6 @@ var Main = React.createClass({
          });
          console.log("top5results: " + top5resultsArray);
          this.setState({ results:top5resultsArray });
-
        }
     }.bind(this));
   },
@@ -89,8 +91,8 @@ var Main = React.createClass({
     this.setState({ searchObject: searchObject });
   },
  // This function allows childrens to update the parent.
-  sethistoryObject: function(searchObject) {
-    this.setState({ searchObject: searchObject });
+  sethistoryObject: function(historyObject) {
+    this.setState({history:historyObj});
   },
   
   // Here we render the function
@@ -99,9 +101,9 @@ var Main = React.createClass({
       <div className="container">
         <div className="row">
           <div className="jumbotron">
-            <h2 className="text-center">News Scrubber!</h2>
+            <h2 className="text-center">NY TIMES ARTICLE SCRUBBER</h2>
             <p className="text-center">
-              <em>Enter your search criteria</em>
+             <i> <em>search nytimes articles and save your favs...</em> </i>
             </p>
           </div>
 
@@ -119,7 +121,7 @@ var Main = React.createClass({
 
             <Results 
             top5results={this.state.results}
-            getHistoryFromDB={this.getHistoryFromDB}
+            getHistoryFromDB={this.getHistoryFromDB.bind(this)}
             removeFromTempResults={this.removeFromTempResults}
              />
 
@@ -132,7 +134,11 @@ var Main = React.createClass({
           <div className="col-md-12">
 
         {/* <History history={this.state.history} /> */}
-        <History history={this.state.history} />
+        <History 
+        history={this.state.history}
+        getHistoryFromDB={this.getHistoryFromDB}
+                
+        />
        
           </div>
 

@@ -12,7 +12,7 @@ var History = React.createClass({
     return (
       <div className="panel panel-default">
         <div className="panel-heading">
-          <h3 className="panel-title text-center">TTop 5 Saved Searches</h3>
+          <h1 className="panel-title text-center">Saved Searches</h1>
         </div>
         <div className="panel-body verticalScroll">
           {/* Here we use a map function to loop through an array in JSX */}
@@ -27,10 +27,11 @@ var History = React.createClass({
                    weblink = {search.weblink}
                    date={search.date}
                    id={search._id}
+                   getHistoryFromDB={this.props. getHistoryFromDB}
                   
                  />      
             );
-         })}
+         },this)}
         </div>
       </div>
     );

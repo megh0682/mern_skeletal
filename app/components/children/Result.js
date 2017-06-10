@@ -6,17 +6,24 @@ var helpers = require("../utils/helpers");
 var Result = React.createClass({
 
 saveClickHandler: function(headline,web_url,index) {
+    var removeRecord = this.props.removeRecord;
+    console.log(removeRecord);
+    var updateResultList = this.props.updateResultList;
+    console.log(updateResultList);
     console.log("I am in saveClickHandler with params as headline: "+headline+" and web_url as: "+ web_url);
-    
-     //fire a post call using helper function to save the result object in DB
+    //fire a post call using helper function to save the result object in DB
     helpers.postHistory(headline,web_url).then(function() {
-     console.log("Added record in DB");
+    console.log("Added record in DB");
      //call getHistoryFromDB method in main component which will trigger render method of main method
     // this.props.doupdateResultList();
+    removeRecord(index);
      //remove the record from result list
      //this.props.doremoveRecord(index);
+    updateResultList();
     });
   },
+
+  
   // Here we render the function
   render: function() {
             return (
@@ -28,6 +35,7 @@ saveClickHandler: function(headline,web_url,index) {
                        <b> WebLink </b> - <a id="weblink" href= {this.props.weblink}>{this.props.weblink}</a>
                     </div>
                     <div className="col-md-2 pull-right">
+                      {/*this.renderComponent()*/}
                          <button className="btn btn-default" onClick={this.saveClickHandler.bind(this,this.props.headline,this.props.weblink,this.props.index)}>Save</button>
                     </div>
                     <div className="clearfix"></div>
